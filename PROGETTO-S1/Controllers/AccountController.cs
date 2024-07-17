@@ -27,6 +27,10 @@ namespace PROGETTO_S1.Controllers
         {
             return View();
         }
+        public IActionResult AdminPage()
+        {
+           return View();
+        }
 
         [HttpPost]
         public async Task<IActionResult> Login(Users users)
