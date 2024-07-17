@@ -1,24 +1,30 @@
+
+////////////////////////////////////////
 1. Lista di Clienti Esistenti (1a Vista)
+
 Mostra una tabella con tutti i clienti, sia privati che aziendali.
 Possibili campi da visualizzare:
 Per ClientiAzienda: Nome, Sede, Intestatario, PIVA.
 Per ClientiPrivato: Nome, Cognome, DataNascita, CF.
 
-
+///////////////////////////////////////////
 2. Lista di Spedizioni Esistenti (2a Vista)
+
 Mostra una tabella con tutte le spedizioni.
 Possibili campi da visualizzare: NumId, DataSpedizione, Peso, CittaDestinatario, Indirizzo, NomeDestinatario, CostoSpedizione, DataConsegnaPrev, FK_ClienteAzienda, FK_ClientePrivato.
 Include la possibilità di aggiornare lo stato della spedizione:
 StatoSpedizione: Stato, Luogo, Descrizione, DataOraAggiornamento.
-3. Visualizzazione dello Stato delle Spedizioni per Cliente (3a Vista)
 
+//////////////////////////////////////////////////////////////////////
+3. Visualizzazione dello Stato delle Spedizioni per Cliente (3a Vista)
 
 Campo di input per inserire CF (per ClientePrivato) o PIVA (per ClienteAzienda).
 Restituisce tutti gli aggiornamenti delle spedizioni associate al CF/PIVA inserito.
 Gli aggiornamenti devono essere ordinati in ordine cronologico inverso (dal più recente al meno recente).
 
-
+//////////////////////////////////////
 4. Dashboard Amministrativa (4a Vista)
+
 Accessibile solo agli utenti con ruolo "admin".
 Mostra:
 Spedizioni "in consegna" in data odierna.
