@@ -1,26 +1,26 @@
-
-LISTA DI CLIENTI ESISTENTI - 1a VISTA (tabelle riempite a mano)
----------------------------------------------------------------------
-
-
-LISTA DI SPEDIZIONI ESISTENTI - 2a VISTA (tabelle riempite a mano)
-
-^^^^^^ la lista di spedizioni deve aggiornare lo stato di spedizione (in transito, in consegna, consegnato, non consegnato), il luogo in cui si trova il pacco, una descrizione eventuale, oltre alla data e dell’ora in cui avviene l’aggiornamento.
------------------------------------------------------------------------
+1. Lista di Clienti Esistenti (1a Vista)
+Mostra una tabella con tutti i clienti, sia privati che aziendali.
+Possibili campi da visualizzare:
+Per ClientiAzienda: Nome, Sede, Intestatario, PIVA.
+Per ClientiPrivato: Nome, Cognome, DataNascita, CF.
 
 
-3a VISTA con CAMPO INPUT dove inserire CF (se ClientePrivato) o P.IVA (se ClienteAzienda) ->
-restituisce tutti gli aggiornamenti in ordine cronologico della spedizione associata al proprio CF/P.IVA (dal piu recente al meno recente) 
-
------------------------------------------------------------------------
-
-4a VISTA accessibile solo all'utente "admin" dove:
-- spedizioni "in consegna" in data odierna;
-- numero totale di spedizioni in "attesa di consegna";
-- numero totale di spedizioni esistenti raggruppate per "CittaDestinatario"
+2. Lista di Spedizioni Esistenti (2a Vista)
+Mostra una tabella con tutte le spedizioni.
+Possibili campi da visualizzare: NumId, DataSpedizione, Peso, CittaDestinatario, Indirizzo, NomeDestinatario, CostoSpedizione, DataConsegnaPrev, FK_ClienteAzienda, FK_ClientePrivato.
+Include la possibilità di aggiornare lo stato della spedizione:
+StatoSpedizione: Stato, Luogo, Descrizione, DataOraAggiornamento.
+3. Visualizzazione dello Stato delle Spedizioni per Cliente (3a Vista)
 
 
-///////////////////////////////////////////////////////////         todo         ///////////////////////////////////////////////////////////
-- riempire tabelle con dati;
-- creare i models relativi alle 4 tabelle ClientiPrivato, ClientiAzienda, Spedizioni, StatoSpedizione
+Campo di input per inserire CF (per ClientePrivato) o PIVA (per ClienteAzienda).
+Restituisce tutti gli aggiornamenti delle spedizioni associate al CF/PIVA inserito.
+Gli aggiornamenti devono essere ordinati in ordine cronologico inverso (dal più recente al meno recente).
 
+
+4. Dashboard Amministrativa (4a Vista)
+Accessibile solo agli utenti con ruolo "admin".
+Mostra:
+Spedizioni "in consegna" in data odierna.
+Numero totale di spedizioni "in attesa di consegna".
+Numero totale di spedizioni esistenti raggruppate per CittaDestinatario.
