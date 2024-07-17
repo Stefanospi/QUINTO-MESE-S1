@@ -1,7 +1,39 @@
-﻿@{
-    ViewData["Title"] = "Admin Page";
-}
+﻿@model IEnumerable<PROGETTO_S1.Models.Spedizione>
 
-<h2>Admin Page</h2>
+<h1>Spedizioni In Consegna Oggi</h1>
 
-<p>Welcome to the admin page, @User.Identity.Name!</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id Spedizione</th>
+            <th>Cliente Azienda</th>
+            <th>Cliente Privato</th>
+            <th>Num Id</th>
+            <th>Data Spedizione</th>
+            <th>Peso</th>
+            <th>Città Destinatario</th>
+            <th>Indirizzo</th>
+            <th>Nome Destinatario</th>
+            <th>Costo Spedizione</th>
+            <th>Data Consegna Prevista</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var spedizione in Model)
+        {
+            <tr>
+                <td>@spedizione.IdSpedizione</td>
+                <td>@spedizione.FK_ClienteAzienda</td>
+                <td>@spedizione.FK_ClientePrivato</td>
+                <td>@spedizione.NumId</td>
+                <td>@spedizione.DataSpedizione</td>
+                <td>@spedizione.Peso</td>
+                <td>@spedizione.CittaDestinatario</td>
+                <td>@spedizione.Indirizzo</td>
+                <td>@spedizione.NomeDestinatario</td>
+                <td>@spedizione.CostoSpedizione</td>
+                <td>@spedizione.DataConsegnaPrev</td>
+            </tr>
+        }
+    </tbody>
+</table>

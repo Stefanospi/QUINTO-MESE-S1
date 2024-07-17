@@ -4,6 +4,6 @@ namespace PROGETTO_S1.Service
 {
     public interface IAdminService
     {
-        public List<Spedizione> Spedizioni();
+        public List<Spedizione> SpedizioniInConsegnaOggi();
     }
 }

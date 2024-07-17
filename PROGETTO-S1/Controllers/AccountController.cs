@@ -11,14 +11,17 @@ namespace PROGETTO_S1.Controllers
     public class AccountController : Controller
     {
         private readonly IAuthService _authService;
+        private readonly IAdminService _adminService;
         private readonly ILogger<AccountController> _logger;
 
-        public AccountController(IAuthService authService, ILogger<AccountController> logger)
+        public AccountController(IAuthService authService, IAdminService adminService, ILogger<AccountController> logger)
         {
             _authService = authService;
             _logger = logger;
+            _adminService = adminService;
+
         }
-      
+
         //////////////////////////////////////////////////// //LOGIN///////////////////////////////////////////////////////////
         public IActionResult Login()
         {
@@ -104,7 +107,8 @@ namespace PROGETTO_S1.Controllers
         [Authorize(Policy = "AdminPolicy")]
         public IActionResult AdminPage()
         {
-            return View();
+            var spedizioni = _adminService.SpedizioniInConsegnaOggi();
+            return View(spedizioni);
         }
     }
 }

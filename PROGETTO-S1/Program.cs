@@ -25,7 +25,8 @@ builder.Services.AddAuthorization(options =>
 
 
 builder.Services
-    .AddScoped<IAuthService, AuthService>();
+    .AddScoped<IAuthService, AuthService>()
+    .AddScoped<IAdminService, AdminService>();
 
 var app = builder.Build();
 
