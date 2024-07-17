@@ -108,7 +108,17 @@ namespace PROGETTO_S1.Controllers
         public IActionResult AdminPage()
         {
             var spedizioni = _adminService.SpedizioniInConsegnaOggi();
-            return View(spedizioni);
+            var totSpedizioniNonConsegnate = _adminService.TotSpedizioniNonConsegnate();
+
+            // Creazione di un modello complesso che include entrambi i dati necessari
+            var model = new AdminPageViewModel
+            {
+                Spedizioni = spedizioni,
+                TotSpedizioniNonConsegnate = totSpedizioniNonConsegnate
+            };
+
+            return View(model);
         }
+
     }
 }

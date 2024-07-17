@@ -1,6 +1,9 @@
-﻿@model IEnumerable<PROGETTO_S1.Models.Spedizione>
+﻿@model PROGETTO_S1.Models.AdminPageViewModel
 
 <h1>Spedizioni In Consegna Oggi</h1>
+
+<!-- Tabella per visualizzare le spedizioni in consegna -->
+
 
 <table class="table">
     <thead>
@@ -19,7 +22,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var spedizione in Model)
+        @foreach (var spedizione in Model.Spedizioni)
         {
             <tr>
                 <td>@spedizione.IdSpedizione</td>
@@ -37,3 +40,6 @@
         }
     </tbody>
 </table>
+<h2>Numero totale di spedizioni non consegnate: @Model.TotSpedizioniNonConsegnate</h2>
+
+<!-- Resto del codice della vista -->

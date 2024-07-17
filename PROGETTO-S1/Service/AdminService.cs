@@ -24,6 +24,11 @@ namespace PROGETTO_S1.Service
         JOIN StatoSpedizione st ON s.IdSpedizione = st.FK_IdSpedizione
         WHERE st.Stato != 'Consegnato';";
 
+       // private const string SPEDIZIONI_PER_CITTA = @"
+       //     SELECT CittaDestinatario, COUNT(*) AS NumeroTotaleSpedizioni
+       //     FROM Spedizioni
+       //     GROUP BY CittaDestinatario;";
+
         public AdminService(IConfiguration configuration)
         {
             _connectionString = configuration.GetConnectionString("Authdb");
@@ -69,8 +74,14 @@ namespace PROGETTO_S1.Service
                 throw new Exception(ex.Message);
             }
         }
-        public List<Spedizione> TotSpedizioniNonConsegnate()
+        public int TotSpedizioniNonConsegnate()
         {
+            const string TOTALE_SPEDIZIONI_NON_CONSEGNATE_COMMAND = @"
+        SELECT COUNT(*) AS TotaleSpedizioniNonConsegnate
+        FROM Spedizioni s
+        JOIN StatoSpedizione st ON s.IdSpedizione = st.FK_IdSpedizione
+        WHERE st.Stato != 'Consegnato';";
+
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -78,20 +89,9 @@ namespace PROGETTO_S1.Service
                     connection.Open();
                     using (var command = new SqlCommand(TOTALE_SPEDIZIONI_NON_CONSEGNATE_COMMAND, connection))
                     {
-                        using (var reader = command.ExecuteReader())
-                        {
-                            var spedizioni = new List<Spedizione>();
-                            while (reader.Read())
-                            {
-                                var spedizione = new Spedizione
-                                {
-
-                                };
-                            }
-                            return spedizioni;
-                        }
+                        var totaleSpedizioniNonConsegnate = (int)command.ExecuteScalar();
+                        return totaleSpedizioniNonConsegnate;
                     }
-
                 }
             }
             catch (Exception ex)
