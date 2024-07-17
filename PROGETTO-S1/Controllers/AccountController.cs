@@ -33,28 +33,25 @@ namespace PROGETTO_S1.Controllers
                 if (user == null)
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return View(users);
+                    return RedirectToAction("Index", "Home");
                 }
 
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, user.Username)
+                    new Claim(ClaimTypes.Name, user.Username),
+                    new Claim("UserId", user.Id.ToString())
                 };
-
-                var roles = _authService.GetUserRoles(user.Id);
-                claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
-
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-                return RedirectToAction("Index", "Home");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Login failed.");
-                ModelState.AddModelError(string.Empty, "An error occurred while processing your request.");
-                return View(users);
+                _logger.LogError(ex, "Error during login");
+                ModelState.AddModelError(string.Empty, "An error occurred. Please try again.");
+                return RedirectToAction("Index", "Home");
             }
+            return RedirectToAction("Index", "Home");
         }
 
 
