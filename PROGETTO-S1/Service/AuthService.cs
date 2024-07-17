@@ -5,14 +5,16 @@ namespace PROGETTO_S1.Service
 {
     public class AuthService : IAuthService
     {
-        public readonly string _connectionString;
-        private const string LOGIN_COMMAND = "SELECT Id,Username FROM Users WHERE Username = @Username AND Password = @Password";
-        private const string ROLES_COMMAND = "SELECT ro.RoleName FROM Roles ro JOIN UserRoles ur ON ro.Id = ur.RoleId WHERE ur.Id = @Id";
-        private const string REGISTER_COMMAND = "INSERT INTO Users (Username,Password) VALUES (@Username,@Password)";
-        public AuthService(IConfiguration connectionString)
+        private readonly string _connectionString;
+        private const string LOGIN_COMMAND = "SELECT Id, Username FROM Users WHERE Username = @Username AND Password = @Password";
+        private const string ROLES_COMMAND = "SELECT ro.RoleName FROM Roles ro JOIN UserRoles ur ON ro.Id = ur.RoleId WHERE ur.UserId = @UserId";
+        private const string REGISTER_COMMAND = "INSERT INTO Users (Username, Password) VALUES (@Username, @Password); SELECT SCOPE_IDENTITY();";
+
+        public AuthService(IConfiguration configuration)
         {
-            _connectionString = connectionString.GetConnectionString("Authdb");
+            _connectionString = configuration.GetConnectionString("Authdb");
         }
+
         public Users Login(string username, string password)
         {
             try
@@ -23,34 +25,30 @@ namespace PROGETTO_S1.Service
                     using (var command = new SqlCommand(LOGIN_COMMAND, connection))
                     {
                         command.Parameters.AddWithValue("@Username", username);
-                        command.Parameters.AddWithValue("@Password", password);
+                        command.Parameters.AddWithValue("@Password", password); // Cripta la password se necessario
                         using (var reader = command.ExecuteReader())
                         {
                             if (reader.Read())
                             {
                                 var user = new Users
                                 {
-                                    id = reader.GetInt32(0),
-                                    username = reader.GetString(1),
-                                    password = password
+                                    Id = reader.GetInt32(0),
+                                    Username = reader.GetString(1),
+                                    Password = password
                                 };
-                                reader.Close();
                                 return user;
                             }
-
                         }
                     }
-
                 }
                 return null;
-
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new Exception("Login failed: " + ex.Message);
             }
-
         }
+
         public Users Register(string username, string password)
         {
             try
@@ -61,33 +59,48 @@ namespace PROGETTO_S1.Service
                     using (var command = new SqlCommand(REGISTER_COMMAND, connection))
                     {
                         command.Parameters.AddWithValue("@Username", username);
-                        command.Parameters.AddWithValue("@Password", password);
-                        using (var reader = command.ExecuteReader())
+                        command.Parameters.AddWithValue("@Password", password); // Cripta la password se necessario
+                        var userId = Convert.ToInt32(command.ExecuteScalar());
+                        return new Users
                         {
-                            if (reader.Read())
-                            {
-                                var user = new Users
-                                {
-                                    id = reader.GetInt32(0),
-                                    username = reader.GetString(1),
-                                    password = password
-                                };
-                                reader.Close();
-                                return user;
-                            }
-
-                        }
+                            Id = userId,
+                            Username = username,
+                            Password = password
+                        };
                     }
-
                 }
-                return null;
-
             }
-
-
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new Exception("Registration failed: " + ex.Message);
+            }
+        }
+
+        public List<string> GetUserRoles(int userId)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+                    using (var command = new SqlCommand(ROLES_COMMAND, connection))
+                    {
+                        command.Parameters.AddWithValue("@UserId", userId);
+                        using (var reader = command.ExecuteReader())
+                        {
+                            var roles = new List<string>();
+                            while (reader.Read())
+                            {
+                                roles.Add(reader.GetString(0));
+                            }
+                            return roles;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Fetching roles failed: " + ex.Message);
             }
         }
     }

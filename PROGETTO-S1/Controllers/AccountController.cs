@@ -11,15 +11,18 @@ namespace PROGETTO_S1.Controllers
     {
         private readonly IAuthService _authService;
         private readonly ILogger<AccountController> _logger;
+
         public AccountController(IAuthService authService, ILogger<AccountController> logger)
         {
             _authService = authService;
             _logger = logger;
         }
+
         public IActionResult Login()
         {
             return View();
         }
+
         public IActionResult Register()
         {
             return View();
@@ -30,58 +33,71 @@ namespace PROGETTO_S1.Controllers
         {
             try
             {
-                var user = _authService.Login(users.username, users.password);
-                if (user == null) {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return RedirectToAction("Index","Home");
-                }
-
-                var claim = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, user.username)
-                };
-                var claimsIdentity = new ClaimsIdentity(claim, CookieAuthenticationDefaults.AuthenticationScheme);
-
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-            }
-            catch(Exception ex)
-            {
-
-            }
-            return RedirectToAction("Index","Home");
-        }
-        [HttpPost]
-        public async Task<IActionResult> Register(Users users)
-        {             
-            try
-            {
-                var user = _authService.Register(users.username, users.password);
+                var user = _authService.Login(users.Username, users.Password);
                 if (user == null)
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid register attempt.");
-                    return RedirectToAction("Index", "Home");
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    return View(users);
                 }
 
-                var claim = new List<Claim>
+                var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, user.username),
-                    new Claim(ClaimTypes.Authentication,user.password)
+                    new Claim(ClaimTypes.Name, user.Username)
                 };
-                var claimsIdentity = new ClaimsIdentity(claim, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                var roles = _authService.GetUserRoles(user.Id);
+                claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+
+                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+                return RedirectToAction("Index", "Home");
             }
             catch (Exception ex)
             {
-
+                _logger.LogError(ex, "Login failed.");
+                ModelState.AddModelError(string.Empty, "An error occurred while processing your request.");
+                return View(users);
             }
-            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(Users users)
+        {
+            try
+            {
+                var user = _authService.Register(users.Username, users.Password);
+                if (user == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid register attempt.");
+                    return View(users);
+                }
+
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, user.Username)
+                };
+
+                var roles = _authService.GetUserRoles(user.Id);
+                claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+
+                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Registration failed.");
+                ModelState.AddModelError(string.Empty, "An error occurred while processing your request.");
+                return View(users);
+            }
         }
 
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
     }
 }
