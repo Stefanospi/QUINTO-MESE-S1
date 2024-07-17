@@ -1,0 +1,26 @@
+
+LISTA DI CLIENTI ESISTENTI - 1a VISTA (tabelle riempite a mano)
+---------------------------------------------------------------------
+
+
+LISTA DI SPEDIZIONI ESISTENTI - 2a VISTA (tabelle riempite a mano)
+
+^^^^^^ la lista di spedizioni deve aggiornare lo stato di spedizione (in transito, in consegna, consegnato, non consegnato), il luogo in cui si trova il pacco, una descrizione eventuale, oltre alla data e dell’ora in cui avviene l’aggiornamento.
+-----------------------------------------------------------------------
+
+
+3a VISTA con CAMPO INPUT dove inserire CF (se ClientePrivato) o P.IVA (se ClienteAzienda) ->
+restituisce tutti gli aggiornamenti in ordine cronologico della spedizione associata al proprio CF/P.IVA (dal piu recente al meno recente) 
+
+-----------------------------------------------------------------------
+
+4a VISTA accessibile solo all'utente "admin" dove:
+- spedizioni "in consegna" in data odierna;
+- numero totale di spedizioni in "attesa di consegna";
+- numero totale di spedizioni esistenti raggruppate per "CittaDestinatario"
+
+
+///////////////////////////////////////////////////////////         todo         ///////////////////////////////////////////////////////////
+- riempire tabelle con dati;
+- creare i models relativi alle 4 tabelle ClientiPrivato, ClientiAzienda, Spedizioni, StatoSpedizione
+
