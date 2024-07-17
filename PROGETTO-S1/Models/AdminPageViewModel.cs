@@ -4,5 +4,6 @@
     {
         public IEnumerable<Spedizione> Spedizioni { get; set; }
         public int TotSpedizioniNonConsegnate { get; set; }
+        public IEnumerable<Spedizione> SpedizioniPerCitta { get; set; }
     }
 }

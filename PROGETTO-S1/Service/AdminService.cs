@@ -24,10 +24,10 @@ namespace PROGETTO_S1.Service
         JOIN StatoSpedizione st ON s.IdSpedizione = st.FK_IdSpedizione
         WHERE st.Stato != 'Consegnato';";
 
-       // private const string SPEDIZIONI_PER_CITTA = @"
-       //     SELECT CittaDestinatario, COUNT(*) AS NumeroTotaleSpedizioni
-       //     FROM Spedizioni
-       //     GROUP BY CittaDestinatario;";
+        private const string SPEDIZIONI_PER_CITTA = @"
+            SELECT CittaDestinatario, COUNT(*) AS NumeroTotaleSpedizioni
+           FROM Spedizioni
+           GROUP BY CittaDestinatario;";
 
         public AdminService(IConfiguration configuration)
         {
@@ -93,6 +93,40 @@ namespace PROGETTO_S1.Service
                         return totaleSpedizioniNonConsegnate;
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public List<Spedizione> SpedizioniPerCitta()
+        {
+            try
+            {
+                using(var connection = new SqlConnection(_connectionString))
+                                    {
+                    connection.Open();
+                    using(var command = new SqlCommand(SPEDIZIONI_PER_CITTA, connection))
+                    {
+                        
+
+                        using (var reader = command.ExecuteReader())
+                        {
+                            var spedizioni = new List<Spedizione>();
+                            while(reader.Read())
+                            {
+                                var TotSpedizioniPerCitta = (int)command.ExecuteScalar();
+                                var spedizione = new Spedizione
+                                {
+                                    CittaDestinatario = reader.GetString(reader.GetOrdinal("CittaDestinatario")),
+                                };
+                                spedizioni.Add(spedizione);
+                            }
+                            return spedizioni;
+                        }
+                    }
+                }
+
             }
             catch (Exception ex)
             {

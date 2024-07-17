@@ -42,4 +42,19 @@
 </table>
 <h2>Numero totale di spedizioni non consegnate: @Model.TotSpedizioniNonConsegnate</h2>
 
+<thead>
+    <tr>
+        <th>Città Destinatario</th>
+    </tr>
+</thead>
+<tbody>
+    @foreach (var spedizione in Model.Spedizioni)
+    {
+        <tr>
+            <td>@spedizione.CittaDestinatario</td>
+        </tr>
+    }
+</tbody>
+
+
 <!-- Resto del codice della vista -->
