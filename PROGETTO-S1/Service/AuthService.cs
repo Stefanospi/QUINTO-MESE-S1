@@ -25,7 +25,7 @@ namespace PROGETTO_S1.Service
                     using (var command = new SqlCommand(LOGIN_COMMAND, connection))
                     {
                         command.Parameters.AddWithValue("@Username", username);
-                        command.Parameters.AddWithValue("@Password", password); // Cripta la password se necessario
+                        command.Parameters.AddWithValue("@Password", password);
                         using (var reader = command.ExecuteReader())
                         {
                             if (reader.Read())
@@ -36,6 +36,7 @@ namespace PROGETTO_S1.Service
                                     Username = reader.GetString(1),
                                     Password = password
                                 };
+                                reader.Close();
                                 return user;
                             }
                         }
@@ -45,9 +46,10 @@ namespace PROGETTO_S1.Service
             }
             catch (Exception ex)
             {
-                throw new Exception("Login failed: " + ex.Message);
+                throw new Exception(ex.Message);
             }
         }
+
 
         public Users Register(string username, string password)
         {

@@ -13,6 +13,17 @@ builder.Services
         options.LoginPath = "/Account/Login";
     });
 
+
+////////////////////////////////////POLICY ////////////////////
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminPolicy", policy =>
+    {
+        policy.RequireClaim("UserId", "1");
+    });
+});
+
+
 builder.Services
     .AddScoped<IAuthService, AuthService>();
 
