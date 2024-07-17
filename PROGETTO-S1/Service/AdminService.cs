@@ -10,11 +10,13 @@ namespace PROGETTO_S1.Service
     {
         private readonly string _connectionString;
         private const string SPEDIZIONI_IN_CONSEGNA_COMMAND = @"
-            SELECT s.*
+SELECT s.IdSpedizione, s.FK_ClienteAzienda, s.FK_ClientePrivato, s.NumId, s.DataSpedizione, 
+                   s.Peso, s.CittaDestinatario, s.Indirizzo, s.NomeDestinatario, s.CostoSpedizione, 
+                   s.DataConsegnaPrev
             FROM Spedizioni s
             JOIN StatoSpedizione st ON s.IdSpedizione = st.FK_IdSpedizione
             WHERE st.Stato = 'In Consegna'
-            AND CONVERT(DATE, st.DataOraAggiornamento) = CAST(GETDATE() AS DATE);";
+            AND CONVERT(DATE, s.DataConsegnaPrev) = CAST(GETDATE() AS DATE);";
 
         public AdminService(IConfiguration configuration)
         {
