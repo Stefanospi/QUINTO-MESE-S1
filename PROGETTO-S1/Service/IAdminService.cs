@@ -8,5 +8,7 @@ namespace PROGETTO_S1.Service
         public int TotSpedizioniNonConsegnate();
         public List<SpedizioniPerCittaResult> SpedizioniPerCitta();
         public List<Spedizione> GetAllSpedizioni();
+        public List<ClienteAzienda> GetAllAzienda();
+        public List<ClientePrivato> GetAllPrivato();
     }
 }

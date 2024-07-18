@@ -32,6 +32,12 @@ namespace PROGETTO_S1.Service
         private const string TUTTE_LE_SPEDIZIONI_COMMAND = @"
             SELECT * FROM Spedizioni;";
 
+        private const string TUTTI_GLI_UTENTIAZIENDA_COMMAND = @"
+            SELECT * FROM ClientiAzienda;";
+
+        private const string TUTTI_GLI_UTENTIPRIVATI_COMMAND = @"
+            SELECT * FROM ClientiPrivato;";
+
         public AdminService(IConfiguration configuration)
         {
             _connectionString = configuration.GetConnectionString("Authdb");
@@ -168,6 +174,76 @@ namespace PROGETTO_S1.Service
                     }
 
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public List<ClienteAzienda> GetAllAzienda()
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+                    using (var command = new SqlCommand(TUTTI_GLI_UTENTIAZIENDA_COMMAND, connection))
+                    {
+                        using (var reader = command.ExecuteReader())
+                        {
+                            var azienda = new List<ClienteAzienda>();
+                            while (reader.Read())
+                            {
+                                var az = new ClienteAzienda
+                                {
+                                    IdClienteAzienda = reader.GetInt32(reader.GetOrdinal("IdClienteAzienda")),
+                                    Nome = reader.GetString(reader.GetOrdinal("Nome")),
+                                    Sede = reader.GetString(reader.GetOrdinal("Sede")),
+                                    Intestatario = reader.GetString(reader.GetOrdinal("Intestatario")),
+                                    PIVA = reader.GetString(reader.GetOrdinal("PIVA")),
+                                };
+                                azienda.Add(az);
+                            }
+                            return azienda;
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public List<ClientePrivato> GetAllPrivato()
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+                    using (var command = new SqlCommand(TUTTI_GLI_UTENTIPRIVATI_COMMAND, connection))
+                    {
+                        using (var reader = command.ExecuteReader())
+                        {
+                            var privato = new List<ClientePrivato>();
+                            while (reader.Read())
+                            {
+                                var pv = new ClientePrivato
+                                {
+                                    IdClientePriv = reader.GetInt32(reader.GetOrdinal("IdClientePriv")),
+                                    Nome = reader.GetString(reader.GetOrdinal("Nome")),
+                                    Cognome = reader.GetString(reader.GetOrdinal("Cognome")),
+                                    DataNascita = reader.GetDateTime(reader.GetOrdinal("DataNascita")),
+                                    CF= reader.GetString(reader.GetOrdinal("CF")),
+                                };
+                                privato.Add(pv);
+                            }
+                            return privato;
+                        }
+                    }
+                }
+
             }
             catch (Exception ex)
             {

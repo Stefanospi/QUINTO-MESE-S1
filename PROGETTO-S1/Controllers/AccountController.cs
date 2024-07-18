@@ -111,13 +111,17 @@ namespace PROGETTO_S1.Controllers
             var totSpedizioniNonConsegnate = _adminService.TotSpedizioniNonConsegnate();
             var spedizioniPerCitta = _adminService.SpedizioniPerCitta();
             var allSpedizioni= _adminService.GetAllSpedizioni();
+            var allAzienda = _adminService.GetAllAzienda();
+            var allPrivati = _adminService.GetAllPrivato();
 
             var model = new AdminPageViewModel
             {
                 Spedizioni = spedizioni,
                 TotSpedizioniNonConsegnate = totSpedizioniNonConsegnate,
                 SpedizioniPerCitta = spedizioniPerCitta,
-                GetAllSpedizioni = allSpedizioni
+                GetAllSpedizioni = allSpedizioni,
+                GetAllAzienda = allAzienda,
+                GetAllPrivati = allPrivati
             };
 
             return View(model);
