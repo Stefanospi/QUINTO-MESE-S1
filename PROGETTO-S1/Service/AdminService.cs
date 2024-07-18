@@ -29,6 +29,9 @@ namespace PROGETTO_S1.Service
            FROM Spedizioni
            GROUP BY CittaDestinatario;";
 
+        private const string TUTTE_LE_SPEDIZIONI_COMMAND = @"
+            SELECT * FROM Spedizioni;";
+
         public AdminService(IConfiguration configuration)
         {
             _connectionString = configuration.GetConnectionString("Authdb");
@@ -123,6 +126,47 @@ namespace PROGETTO_S1.Service
                             return results;
                         }
                     }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public List<Spedizione> GetAllSpedizioni()
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+                    using (var command = new SqlCommand(TUTTE_LE_SPEDIZIONI_COMMAND, connection))
+                    {
+                        using (var reader = command.ExecuteReader())
+                        {
+                            var spedizioni = new List<Spedizione>();
+                            while (reader.Read())
+                            {
+                                var spedizione = new Spedizione
+                                {
+                                    IdSpedizione = reader.GetInt32(reader.GetOrdinal("IdSpedizione")),
+                                    FK_ClienteAzienda = reader.IsDBNull(reader.GetOrdinal("FK_ClienteAzienda")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("FK_ClienteAzienda")),
+                                    FK_ClientePrivato = reader.IsDBNull(reader.GetOrdinal("FK_ClientePrivato")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("FK_ClientePrivato")),
+                                    NumId = reader.GetInt32(reader.GetOrdinal("NumId")),
+                                    DataSpedizione = reader.GetDateTime(reader.GetOrdinal("DataSpedizione")),
+                                    Peso = reader.GetDecimal(reader.GetOrdinal("Peso")),
+                                    CittaDestinatario = reader.GetString(reader.GetOrdinal("CittaDestinatario")),
+                                    Indirizzo = reader.GetString(reader.GetOrdinal("Indirizzo")),
+                                    NomeDestinatario = reader.GetString(reader.GetOrdinal("NomeDestinatario")),
+                                    CostoSpedizione = reader.GetDecimal(reader.GetOrdinal("CostoSpedizione")),
+                                    DataConsegnaPrev = reader.GetDateTime(reader.GetOrdinal("DataConsegnaPrev"))
+                                };
+                                spedizioni.Add(spedizione);
+                            }
+                            return spedizioni;
+                        }
+                    }
+
                 }
             }
             catch (Exception ex)

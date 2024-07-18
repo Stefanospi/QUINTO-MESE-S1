@@ -18,10 +18,12 @@ namespace PROGETTO_S1.Service
         public List<Spedizione> SpedizioniPerClientePrivato(string codiceFiscale)
         {
             const string query = @"
-                SELECT s.*
+                SELECT s.* ,st.DataOraAggiornamento
                 FROM Spedizioni s
                 JOIN ClientiPrivato cp ON s.FK_ClientePrivato = cp.IdClientePriv
-                WHERE cp.CF = @CodiceFiscale;";
+                JOIN StatoSpedizione st ON s.IdSpedizione = st.FK_IdSpedizione
+                WHERE cp.CF = @CodiceFiscale
+                ORDER BY st.DataOraAggiornamento DESC;";
 
             try
             {
@@ -49,7 +51,9 @@ namespace PROGETTO_S1.Service
                                     Indirizzo = reader.GetString(reader.GetOrdinal("Indirizzo")),
                                     NomeDestinatario = reader.GetString(reader.GetOrdinal("NomeDestinatario")),
                                     CostoSpedizione = reader.GetDecimal(reader.GetOrdinal("CostoSpedizione")),
-                                    DataConsegnaPrev = reader.GetDateTime(reader.GetOrdinal("DataConsegnaPrev"))
+                                    DataConsegnaPrev = reader.GetDateTime(reader.GetOrdinal("DataConsegnaPrev")),
+                                    DataOraAggiornamento = reader.GetDateTime(reader.GetOrdinal("DataOraAggiornamento"))
+
                                 };
                                 spedizioni.Add(spedizione);
                             }
@@ -67,10 +71,12 @@ namespace PROGETTO_S1.Service
         public List<Spedizione> SpedizioniPerClienteAzienda(string partitaIVA)
         {
             const string query = @"
-        SELECT s.*
+        SELECT s.*, st.DataOraAggiornamento
         FROM Spedizioni s
+        JOIN StatoSpedizione st ON s.IdSpedizione = st.IdStatoSpedizione
         JOIN ClientiAzienda ca ON s.FK_ClienteAzienda = ca.IdClienteAzienda
-        WHERE ca.PIVA = @PartitaIVA;";
+        WHERE ca.PIVA = @PartitaIVA
+        ORDER BY st.DataOraAggiornamento DESC;";
 
             try
             {
@@ -98,8 +104,8 @@ namespace PROGETTO_S1.Service
                                     Indirizzo = reader.GetString(reader.GetOrdinal("Indirizzo")),
                                     NomeDestinatario = reader.GetString(reader.GetOrdinal("NomeDestinatario")),
                                     CostoSpedizione = reader.GetDecimal(reader.GetOrdinal("CostoSpedizione")),
-                                    DataConsegnaPrev = reader.GetDateTime(reader.GetOrdinal("DataConsegnaPrev"))
-
+                                    DataConsegnaPrev = reader.GetDateTime(reader.GetOrdinal("DataConsegnaPrev")),
+                                    DataOraAggiornamento = reader.GetDateTime(reader.GetOrdinal("DataOraAggiornamento"))
                                 };
                                 spedizioni.Add(spedizione);
                             }

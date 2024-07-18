@@ -7,5 +7,6 @@ namespace PROGETTO_S1.Service
         public List<Spedizione> SpedizioniInConsegnaOggi();
         public int TotSpedizioniNonConsegnate();
         public List<SpedizioniPerCittaResult> SpedizioniPerCitta();
+        public List<Spedizione> GetAllSpedizioni();
     }
 }
