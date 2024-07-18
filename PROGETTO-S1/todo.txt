@@ -1,15 +1,13 @@
-
+-----------Includere la possibilità di aggiornare lo stato della spedizione:--------
 ////////////////////////////////////////
 1. Lista di Clienti Esistenti 
 
 Mostra una tabella con tutti i clienti, sia privati che aziendali e i dati relativi
 
 ///////////////////////////////////////////
-2. ADMIN SERVICE 
-Aggiunta query per tutte le spedizioni (no parametri)
 
------------Include la possibilità di aggiornare lo stato della spedizione:--------
-.
+
+
 
 //////////////////////////////////////////////////////////////////////
 3. SPEDIZIONI SERVICE
