@@ -16,5 +16,6 @@
 
         public virtual ClienteAzienda ClienteAzienda { get; set; }
         public virtual ClientePrivato ClientePrivato { get; set; }
+        public DateTime DataOraAggiornamento { get; set; }
     }
 }
