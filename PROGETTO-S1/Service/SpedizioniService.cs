@@ -89,7 +89,17 @@ namespace PROGETTO_S1.Service
                                 var spedizione = new Spedizione
                                 {
                                     IdSpedizione = reader.GetInt32(reader.GetOrdinal("IdSpedizione")),
-                                    // Altri campi della spedizione
+                                    FK_ClienteAzienda = reader.IsDBNull(reader.GetOrdinal("FK_ClienteAzienda")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("FK_ClienteAzienda")),
+                                    FK_ClientePrivato = reader.IsDBNull(reader.GetOrdinal("FK_ClientePrivato")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("FK_ClientePrivato")),
+                                    NumId = reader.GetInt32(reader.GetOrdinal("NumId")),
+                                    DataSpedizione = reader.GetDateTime(reader.GetOrdinal("DataSpedizione")),
+                                    Peso = reader.GetDecimal(reader.GetOrdinal("Peso")),
+                                    CittaDestinatario = reader.GetString(reader.GetOrdinal("CittaDestinatario")),
+                                    Indirizzo = reader.GetString(reader.GetOrdinal("Indirizzo")),
+                                    NomeDestinatario = reader.GetString(reader.GetOrdinal("NomeDestinatario")),
+                                    CostoSpedizione = reader.GetDecimal(reader.GetOrdinal("CostoSpedizione")),
+                                    DataConsegnaPrev = reader.GetDateTime(reader.GetOrdinal("DataConsegnaPrev"))
+
                                 };
                                 spedizioni.Add(spedizione);
                             }
