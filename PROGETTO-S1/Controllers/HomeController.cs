@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PROGETTO_S1.Models;
@@ -18,6 +19,7 @@ namespace PROGETTO_S1.Controllers
             _spedizioniService = spedizioniService;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             return View();
