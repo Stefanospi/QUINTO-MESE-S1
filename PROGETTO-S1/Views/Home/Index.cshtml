@@ -2,12 +2,17 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Inserisci il Codice Fiscale</h1>
+<h1>Ricerca Spedizioni</h1>
 
-<form asp-controller="Home" asp-action="SpedizioniPerClientePrivato" method="post">
+<form asp-controller="Home" asp-action="CercaSpedizioni" method="post">
     <div class="form-group">
         <label for="codiceFiscale">Codice Fiscale:</label>
-        <input type="text" id="codiceFiscale" name="codiceFiscale" class="form-control" required />
+        <input type="text" id="codiceFiscale" name="codiceFiscale" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="partitaIVA">Partita IVA:</label>
+        <input type="text" id="partitaIVA" name="partitaIVA" class="form-control" />
     </div>
     <button type="submit" class="btn btn-primary">Cerca Spedizioni</button>
+
 </form>

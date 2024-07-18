@@ -1,38 +1,5 @@
-﻿@model IEnumerable<PROGETTO_S1.Models.Spedizione>
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
 @{
-    ViewData["Title"] = "Clienti";
 }
-
-<h1>Spedizioni per Cliente Azienda</h1>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Id Spedizione</th>
-            <th>Num Id</th>
-            <th>Data Spedizione</th>
-            <th>Peso</th>
-            <th>Città Destinatario</th>
-            <th>Indirizzo</th>
-            <th>Nome Destinatario</th>
-            <th>Costo Spedizione</th>
-            <th>Data Consegna Prevista</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var spedizione in Model)
-        {
-            <tr>
-                <td>@spedizione.IdSpedizione</td>
-                <td>@spedizione.NumId</td>
-                <td>@spedizione.DataSpedizione</td>
-                <td>@spedizione.Peso</td>
-                <td>@spedizione.CittaDestinatario</td>
-                <td>@spedizione.Indirizzo</td>
-                <td>@spedizione.NomeDestinatario</td>
-                <td>@spedizione.CostoSpedizione</td>
-                <td>@spedizione.DataConsegnaPrev</td>
-            </tr>
-        }
-    </tbody>
-</table>
