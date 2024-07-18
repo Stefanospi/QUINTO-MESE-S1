@@ -1,15 +1,12 @@
------------Includere la possibilità di aggiornare lo stato della spedizione:--------
-////////////////////////////////////////
+
+/////////////////////////////
 1. Lista di Clienti Esistenti 
 
 Mostra una tabella con tutti i clienti, sia privati che aziendali e i dati relativi
 
-///////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////
+2.Includere la possibilità di aggiornare lo stato della spedizione:
 
 
-
-
-//////////////////////////////////////////////////////////////////////
-3. SPEDIZIONI SERVICE
-Aggiornare le query di ricerca per CF o P.IVA (order by DATAORAAGGIORNAMENTO -> DECRESCENTE)
 
