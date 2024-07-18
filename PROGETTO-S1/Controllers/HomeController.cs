@@ -5,6 +5,8 @@ using PROGETTO_S1.Models;
 using PROGETTO_S1.Service;
 using System;
 using System.Diagnostics;
+using System.Net;
+using System.Net.Mail;
 
 namespace PROGETTO_S1.Controllers
 {
@@ -55,8 +57,53 @@ namespace PROGETTO_S1.Controllers
             }
         }
 
+        [HttpPost]
+        public IActionResult SendEmail(EmailViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    string smtpServer = "smtp.gmail.com";
+                    int smtpPort = 587;
+                    string smtpUsername = "";
+                    string smtpPassword = "";
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+                    using (var client = new SmtpClient(smtpServer, smtpPort))
+                    {
+                        client.UseDefaultCredentials = false;
+                        client.Credentials = new NetworkCredential(smtpUsername, smtpPassword);
+                        client.EnableSsl = true;
+
+                        var mailMessage = new MailMessage
+                        {
+                            From = new MailAddress(smtpUsername),
+                            Subject = model.Subject,
+                            Body = model.Message,
+                            IsBodyHtml = true
+                        };
+
+                        mailMessage.To.Add(model.ToEmail);
+
+                        client.Send(mailMessage);
+                    }
+
+                    return RedirectToAction("Index", new { success = true });
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError(string.Empty, "Si è verificato un errore durante l'invio dell'email. Riprova più tardi.");
+                    _logger.LogError(ex, "Errore durante l'invio dell'email.");
+                }
+            }
+
+            return View(model);
+        }
+    
+
+
+
+[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
