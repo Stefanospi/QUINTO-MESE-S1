@@ -1,12 +1,15 @@
 
-/////////////////////////////
-1. Lista di Clienti Esistenti 
-
-Mostra una tabella con tutti i clienti, sia privati che aziendali e i dati relativi
-
+////////////////
+1. FORM CONTATTI
 
 ///////////////////////////////////////////////////////////////////
-2.Includere la possibilità di aggiornare lo stato della spedizione:
+2.Includere la possibilità di aggiornare lo stato della spedizione
 
+////////////////////////////////////////////////////////////////
+3. RENDERE LA RICERCA PER CF / P.IVA ACCESSIBILE SOLO SE LOGGATO
 
+//////////////////////////////
+4. QUALCOSA NELLA PAGINA INDEX
 
+/////
+5.CSS
