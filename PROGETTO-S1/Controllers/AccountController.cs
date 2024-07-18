@@ -110,12 +110,14 @@ namespace PROGETTO_S1.Controllers
             var spedizioni = _adminService.SpedizioniInConsegnaOggi();
             var totSpedizioniNonConsegnate = _adminService.TotSpedizioniNonConsegnate();
             var spedizioniPerCitta = _adminService.SpedizioniPerCitta();
+            var allSpedizioni= _adminService.GetAllSpedizioni();
 
             var model = new AdminPageViewModel
             {
                 Spedizioni = spedizioni,
                 TotSpedizioniNonConsegnate = totSpedizioniNonConsegnate,
-                SpedizioniPerCitta = spedizioniPerCitta
+                SpedizioniPerCitta = spedizioniPerCitta,
+                GetAllSpedizioni = allSpedizioni
             };
 
             return View(model);
