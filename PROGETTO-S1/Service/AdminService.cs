@@ -24,7 +24,7 @@ namespace PROGETTO_S1.Service
         JOIN StatoSpedizione st ON s.IdSpedizione = st.FK_IdSpedizione
         WHERE st.Stato != 'Consegnato';";
 
-        private const string SPEDIZIONI_PER_CITTA = @"
+        private const string SPEDIZIONI_PER_CITTA_COMMAND = @"
             SELECT CittaDestinatario, COUNT(*) AS NumeroTotaleSpedizioni
            FROM Spedizioni
            GROUP BY CittaDestinatario;";
@@ -99,34 +99,31 @@ namespace PROGETTO_S1.Service
                 throw new Exception(ex.Message);
             }
         }
-        public List<Spedizione> SpedizioniPerCitta()
+        public List<SpedizioniPerCittaResult> SpedizioniPerCitta()
         {
             try
             {
-                using(var connection = new SqlConnection(_connectionString))
-                                    {
+                using (var connection = new SqlConnection(_connectionString))
+                {
                     connection.Open();
-                    using(var command = new SqlCommand(SPEDIZIONI_PER_CITTA, connection))
+                    using (var command = new SqlCommand(SPEDIZIONI_PER_CITTA_COMMAND, connection))
                     {
-                        
-
                         using (var reader = command.ExecuteReader())
                         {
-                            var spedizioni = new List<Spedizione>();
-                            while(reader.Read())
+                            var results = new List<SpedizioniPerCittaResult>();
+                            while (reader.Read())
                             {
-                                var TotSpedizioniPerCitta = (int)command.ExecuteScalar();
-                                var spedizione = new Spedizione
+                                var result = new SpedizioniPerCittaResult
                                 {
                                     CittaDestinatario = reader.GetString(reader.GetOrdinal("CittaDestinatario")),
+                                    NumeroTotaleSpedizioni = reader.GetInt32(reader.GetOrdinal("NumeroTotaleSpedizioni"))
                                 };
-                                spedizioni.Add(spedizione);
+                                results.Add(result);
                             }
-                            return spedizioni;
+                            return results;
                         }
                     }
                 }
-
             }
             catch (Exception ex)
             {

@@ -111,7 +111,6 @@ namespace PROGETTO_S1.Controllers
             var totSpedizioniNonConsegnate = _adminService.TotSpedizioniNonConsegnate();
             var spedizioniPerCitta = _adminService.SpedizioniPerCitta();
 
-            // Creazione di un modello complesso che include entrambi i dati necessari
             var model = new AdminPageViewModel
             {
                 Spedizioni = spedizioni,
@@ -121,6 +120,5 @@ namespace PROGETTO_S1.Controllers
 
             return View(model);
         }
-
     }
 }

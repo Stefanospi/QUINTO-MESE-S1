@@ -42,19 +42,22 @@
 </table>
 <h2>Numero totale di spedizioni non consegnate: @Model.TotSpedizioniNonConsegnate</h2>
 
-<thead>
-    <tr>
-        <th>Città Destinatario</th>
-    </tr>
-</thead>
-<tbody>
-    @foreach (var spedizione in Model.Spedizioni)
-    {
+
+<h2>Spedizioni Per Città</h2>
+<table class="table">
+    <thead>
         <tr>
-            <td>@spedizione.CittaDestinatario</td>
+            <th>Città Destinatario</th>
+            <th>Numero Totale Spedizioni</th>
         </tr>
-    }
-</tbody>
-
-
-<!-- Resto del codice della vista -->
+    </thead>
+    <tbody>
+        @foreach (var result in Model.SpedizioniPerCitta)
+        {
+            <tr>
+                <td>@result.CittaDestinatario</td>
+                <td>@result.NumeroTotaleSpedizioni</td>
+            </tr>
+        }
+    </tbody>
+</table>
