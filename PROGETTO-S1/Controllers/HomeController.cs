@@ -24,8 +24,9 @@ namespace PROGETTO_S1.Controllers
 
         public IActionResult SpedizioniPerClientePrivato(string codiceFiscale)
         {
+            codiceFiscale = "VRDLUC78B15H501N";
             var spedizioni = _spedizioniService.SpedizioniPerClientePrivato(codiceFiscale);
-            return View("SpedizioniPerCliente", spedizioni);
+            return View("SpedizioniPerClientePrivato", spedizioni);
         }
 
        // public IActionResult SpedizioniPerClienteAzienda(string partitaIVA)
