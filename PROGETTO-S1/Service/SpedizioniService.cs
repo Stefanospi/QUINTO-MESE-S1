@@ -1,8 +1,8 @@
-﻿using PROGETTO_S1.Models;
+﻿using Microsoft.Extensions.Configuration;
+using PROGETTO_S1.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
-using System;
 
 namespace PROGETTO_S1.Service
 {
@@ -18,10 +18,10 @@ namespace PROGETTO_S1.Service
         public List<Spedizione> SpedizioniPerClientePrivato(string codiceFiscale)
         {
             const string query = @"
-        SELECT s.*
-        FROM Spedizioni s
-        JOIN ClientiPrivato cp ON s.FK_ClientePrivato = cp.IdClientePriv
-        WHERE cp.CF = 'VRDLUC78B15H501N'";
+                SELECT s.*
+                FROM Spedizioni s
+                JOIN ClientiPrivato cp ON s.FK_ClientePrivato = cp.IdClientePriv
+                WHERE cp.CF = @CodiceFiscale;";
 
             try
             {
@@ -30,8 +30,7 @@ namespace PROGETTO_S1.Service
                     connection.Open();
                     using (var command = new SqlCommand(query, connection))
                     {
-                        // Assicurati che il nome del parametro corrisponda esattamente alla query SQL
-                        command.Parameters.AddWithValue("@VRDLUC78B15H501N", codiceFiscale);
+                        command.Parameters.AddWithValue("@CodiceFiscale", codiceFiscale);
 
                         using (var reader = command.ExecuteReader())
                         {
@@ -64,7 +63,5 @@ namespace PROGETTO_S1.Service
                 throw new Exception(ex.Message);
             }
         }
-
-
     }
 }
