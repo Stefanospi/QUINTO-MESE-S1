@@ -23,43 +23,36 @@ namespace PROGETTO_S1.Controllers
             return View();
         }
 
+
         [HttpPost]
         public IActionResult CercaSpedizioni(string codiceFiscale, string partitaIVA)
         {
-            if (!string.IsNullOrEmpty(codiceFiscale))
+            try
             {
-                try
+                if (!string.IsNullOrEmpty(codiceFiscale))
                 {
                     var spedizioni = _spedizioniService.SpedizioniPerClientePrivato(codiceFiscale);
                     return View("SpedizioniPerClientePrivato", spedizioni);
                 }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError(string.Empty, "Si è verificato un errore durante il recupero delle spedizioni per il cliente privato. Riprova più tardi.");
-                    _logger.LogError(ex, "Errore durante il recupero delle spedizioni per il cliente privato.");
-                    return RedirectToAction("Index");
-                }
-            }
-            else if (!string.IsNullOrEmpty(partitaIVA))
-            {
-                try
+                else if (!string.IsNullOrEmpty(partitaIVA))
                 {
                     var spedizioni = _spedizioniService.SpedizioniPerClienteAzienda(partitaIVA);
                     return View("SpedizioniPerClienteAzienda", spedizioni);
                 }
-                catch (Exception ex)
+                else
                 {
-                    ModelState.AddModelError(string.Empty, "Si è verificato un errore durante il recupero delle spedizioni per l'azienda. Riprova più tardi.");
-                    _logger.LogError(ex, "Errore durante il recupero delle spedizioni per l'azienda.");
+                    ModelState.AddModelError(string.Empty, "Inserisci un codice fiscale o una partita IVA valida.");
                     return RedirectToAction("Index");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, "Inserisci un codice fiscale o una partita IVA valida.");
+                ModelState.AddModelError(string.Empty, "Si è verificato un errore durante la ricerca delle spedizioni. Riprova più tardi.");
+                _logger.LogError(ex, "Errore durante la ricerca delle spedizioni.");
                 return RedirectToAction("Index");
             }
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
