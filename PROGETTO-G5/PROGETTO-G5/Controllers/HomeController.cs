@@ -61,7 +61,26 @@ namespace PROGETTO_G5.Controllers
             var violazioni = _violazioneService.GetTipoViolazione();
             return View(violazioni);
         }
-
+        public IActionResult VerbaliConTrasgressore()
+        {
+            var verbaliConTrasgressore = _verbaleService.GetVerbaleConTrasgressore();
+            return View(verbaliConTrasgressore);
+        }
+        public IActionResult VerbaliConPuntiDecurtati()
+        {
+            var verbaliConPuntiDecurtati = _verbaleService.GetVerbaliConPuntiDecurtati();
+            return View(verbaliConPuntiDecurtati);
+        }
+        public IActionResult Verbali10PuntiDecurtati()
+        {
+            var verbaliCon10Punti = _verbaleService.GetVerbaliCon10PuntiDecurtati();
+            return View(verbaliCon10Punti);
+        }
+        public IActionResult VerbaliConImporto400()
+        {
+            var verbaliConImporto400 = _verbaleService.GetVerbaliConImporto400();
+            return View(verbaliConImporto400);
+        }
 
 
 

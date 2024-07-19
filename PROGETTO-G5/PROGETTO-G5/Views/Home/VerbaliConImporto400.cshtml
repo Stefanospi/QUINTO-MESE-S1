@@ -1,0 +1,33 @@
+﻿@model IEnumerable<PROGETTO_G5.Models.VerbaliConImporto400>
+
+@{
+    ViewData["Title"] = "Verbale con importo maggiore di 400";
+}
+
+<h1>Verbali con Importo maggiore di 400</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Data di violazione</th>
+            <th>Punti Decurtati</th>
+            <th>Importo</th>
+            <th>Nominativo Agente</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var violazione in Model)
+        {
+            <tr>
+                <td>@violazione.Nome</td>
+                <td>@violazione.Cognome</td>
+                <td>@violazione.DataDiViolazione</td>
+                <td>@violazione.DecurtamentoPunti</td>
+                <td>@violazione.Importo</td>
+                <td>@violazione.NominativoAgente</td>
+            </tr>
+        }
+    </tbody>
+</table>

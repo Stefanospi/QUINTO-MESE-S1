@@ -1,0 +1,31 @@
+﻿@model IEnumerable<PROGETTO_G5.Models.VerbaliConDecurtamento10Punti>
+
+@{
+    ViewData["Title"] = "Verbale con punti decurtati";
+}
+
+<h1>Verbali con 10 punti decurtati</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Cognome</th> 
+            <th>Importo</th>
+            <th>Data di violazione</th>
+            <th>Punti Decurtati</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var violazione in Model)
+        {
+            <tr>
+                <td>@violazione.Nome</td>
+                <td>@violazione.Cognome</td>
+                <td>@violazione.Importo</td>
+                <td>@violazione.DataDiViolazione</td>
+                <td>@violazione.DecurtamentoPunti</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,29 @@
+﻿@model IEnumerable<PROGETTO_G5.Models.VerbaleConTrasgressore>
+
+@{
+    ViewData["Title"] = "Verbale con trasgressori";
+}
+
+<h1>Verbali con trasgressore</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>IdAnagrafica</th>
+            <th>Cognome</th>
+            <th>Nome</th>
+            <th>Totale Verbali</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var violazione in Model)
+        {
+            <tr>
+                <td>@violazione.IdAnagrafica</td>
+                <td>@violazione.Cognome</td>
+                <td>@violazione.Nome</td>
+                <td>@violazione.TotaleVerbali</td>
+            </tr>
+        }
+    </tbody>
+</table>
