@@ -3,21 +3,21 @@
     ViewData["Title"] = "Tipi di Violazione";
 }
 
-<h1>Violazioni</h1>
+<h1 class="text-light fst-italic">Violazioni</h1>
 
 <table class="table">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Descrizione</th>
+            <th class="text-light">Identificativo Violazione</th>
+            <th class="text-light">Descrizione</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var violazione in Model)
         {
             <tr>
-                <td>@violazione.IdViolazione</td>
-                <td>@violazione.Descrizione</td>
+                <td class="text-light">@violazione.IdViolazione</td>
+                <td class="text-light">@violazione.Descrizione</td>
             </tr>
         }
     </tbody>

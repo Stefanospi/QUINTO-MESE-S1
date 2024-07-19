@@ -26,6 +26,26 @@ body {
     background-color: #234E89 !important;
 }
 
+.btn-personal{
+    background-color: #234E89 !important;
+    color: white !important;
+    border-color: #234E89 !important;
+}
 
+.btn-personal:hover {
+        background-color: #1A3A68 !important; 
+        border-color: #1A3A68 !important; 
+    }
+
+.btn-personal2 {
+    background-color: #c9a508 !important;
+    border-color: #c9a508 !important;
+    color: #f0f0f0 !important;
+}
+
+    .btn-personal2:hover {
+        background-color: #a98406 !important; /* colore più scuro */
+        border-color: #a98406 !important; /* colore più scuro */
+    }
 
 

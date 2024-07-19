@@ -4,27 +4,27 @@
     ViewData["Title"] = "Verbale con importo maggiore di 400";
 }
 
-<h1>Verbali con Importo maggiore di 400</h1>
+<h1 class="text-light fst-italic">Verbali con Importo maggiore di 400</h1>
 
 <table class="table">
     <thead>
         <tr>
-            <th>Nome</th>
-            <th>Cognome</th>
-            <th>Data di violazione</th>
-            <th>Punti Decurtati</th>
-            <th>Importo</th>
+            <th class="text-light">Nome</th>
+            <th class="text-light">Cognome</th>
+            <th class="text-light">Data di violazione</th>
+            <th class="text-light">Punti Decurtati</th>
+            <th class="text-light">Importo</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var violazione in Model)
         {
             <tr>
-                <td>@violazione.Nome</td>
-                <td>@violazione.Cognome</td>
-                <td>@violazione.DataDiViolazione</td>
-                <td>@violazione.DecurtamentoPunti</td>
-                <td>@violazione.Importo</td>
+                <td class="text-light">@violazione.Nome</td>
+                <td class="text-light">@violazione.Cognome</td>
+                <td class="text-light">@violazione.DataDiViolazione</td>
+                <td class="text-light">@violazione.DecurtamentoPunti</td>
+                <td class="text-light">@violazione.Importo</td>
             </tr>
         }
     </tbody>
