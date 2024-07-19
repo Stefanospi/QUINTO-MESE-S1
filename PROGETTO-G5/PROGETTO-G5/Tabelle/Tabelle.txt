@@ -1,0 +1,32 @@
+﻿CREATE TABLE [dbo].[Anagrafica] (
+    [IdAnagrafica]  INT           IDENTITY (1, 1) NOT NULL,
+    [Cognome]       NVARCHAR (50) NOT NULL,
+    [Nome]          NVARCHAR (50) NOT NULL,
+    [Indirizzo]     NVARCHAR (50) NOT NULL,
+    [Citta]         NVARCHAR (50) NOT NULL,
+    [CAP]           NVARCHAR (5)  NOT NULL,
+    [CodiceFiscale] NVARCHAR (16) NOT NULL,
+    PRIMARY KEY CLUSTERED ([IdAnagrafica] ASC)
+);
+
+CREATE TABLE [dbo].[Tipo_Violazione] (
+    [IdViolazione] INT           NOT NULL,
+    [Descrizione]  VARCHAR (256) NOT NULL,
+    PRIMARY KEY CLUSTERED ([IdViolazione] ASC)
+);
+
+CREATE TABLE [dbo].[Verbale] (
+    [IdVerbale]               INT             IDENTITY (1, 1) NOT NULL,
+    [DataViolazione]          DATE            NOT NULL,
+    [IndirizzoViolazione]     VARCHAR (50)    NOT NULL,
+    [NominativoAgente]        VARCHAR (50)    NOT NULL,
+    [DataTrascrizioneVerbale] DATE            NOT NULL,
+    [Importo]                 DECIMAL (10, 2) NOT NULL,
+    [DecurtamentoPunti]       INT             NOT NULL,
+    [IdAnagrafica]            INT             NOT NULL,
+    [IdTipoViolazione]        INT             NOT NULL,
+    PRIMARY KEY CLUSTERED ([IdVerbale] ASC),
+    CONSTRAINT [FK_Verbale_TipoViolazione] FOREIGN KEY ([IdTipoViolazione]) REFERENCES [dbo].[Tipo_Violazione] ([IdViolazione]),
+    CONSTRAINT [FK_Verbale_Anagrafica] FOREIGN KEY ([IdAnagrafica]) REFERENCES [dbo].[Anagrafica] ([IdAnagrafica])
+);
+
