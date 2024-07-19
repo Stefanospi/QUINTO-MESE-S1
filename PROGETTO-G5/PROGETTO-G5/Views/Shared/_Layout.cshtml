@@ -12,7 +12,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PROGETTO_G5</a>
+                <a class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="Index">DataBase Verbali</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -20,29 +20,40 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>                       
+                        <li class="nav-item">       
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="CreateAnagrafica">Anagrafica</a>
+                        </li>                       
+                        <li class="nav-item">       
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Violazioni">Tipi di violazioni</a>
+                        </li>                       
+                        <li class="nav-item">       
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="CreateVerbali">Inserisci verbale</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="CreateAnagrafica">Anagrafica</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Violazioni">Tipi di violazioni</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="CreateVerbali">Inserisci verbale</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="VerbaliConTrasgressore">Verbali totali per trasgressori</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="VerbaliConPuntiDecurtati">Verbali con punti decurtati</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Verbali10PuntiDecurtati">Verbali con più di 10 punti decurtati</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="VerbaliConImporto400">Verbali con importo maggiore di 400€</a>
-                        </li>
+                        <div class="dropdown">
+                            <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Tipologia Verbali
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="VerbaliConTrasgressore">Verbali totali per trasgressori</a>
+                                </li>
+                                <li class="dropdown-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="VerbaliConPuntiDecurtati">Verbali con punti decurtati</a>
+                                </li>
+                                <li class="dropdown-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Verbali10PuntiDecurtati">Verbali con più di 10 punti decurtati</a>
+                                </li>
+                                <li class="dropdown-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="VerbaliConImporto400">Verbali con importo maggiore di 400€</a>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        
+                        
+                        
                     </ul>
                 </div>
             </div>
@@ -55,8 +66,8 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - PROGETTO_G5 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div class="container text-light">
+            &copy; 2024 - PROGETTO_G5 - <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -187,12 +187,11 @@ namespace PROGETTO_G5.Services
                             {
                                 VerbaliConImporto400 verbaleConImporto400 = new VerbaliConImporto400
                                 {
-                                    Importo = reader.GetDecimal(0),
-                                    Cognome = reader.GetString(1),
-                                    Nome = reader.GetString(2),
-                                    NominativoAgente = reader.GetString(3),
-                                    DataDiViolazione = reader.GetDateTime(4),
-                                    DecurtamentoPunti = reader.GetInt32(5)
+                                    Importo = reader.GetDecimal(reader.GetOrdinal("Importo")),
+                                    Cognome = reader.GetString(reader.GetOrdinal("Cognome")),
+                                    Nome = reader.GetString(reader.GetOrdinal("Nome")),
+                                    DataDiViolazione = reader.GetDateTime(reader.GetOrdinal("DataViolazione")),
+                                    DecurtamentoPunti = reader.GetInt32(reader.GetOrdinal("DecurtamentoPunti"))
                                 };
                                 verbaliConImporto400.Add(verbaleConImporto400);
                             }
@@ -200,12 +199,10 @@ namespace PROGETTO_G5.Services
                     }
                 }
                 return verbaliConImporto400;
-
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
-
             }
         }
     }
