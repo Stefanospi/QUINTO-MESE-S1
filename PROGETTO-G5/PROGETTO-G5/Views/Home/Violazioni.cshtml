@@ -1,0 +1,24 @@
+﻿@model IEnumerable<PROGETTO_G5.Models.TipoViolazione>
+@{
+    ViewData["Title"] = "Tipi di Violazione";
+}
+
+<h1>Violazioni</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Descrizione</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var violazione in Model)
+        {
+            <tr>
+                <td>@violazione.IdViolazione</td>
+                <td>@violazione.Descrizione</td>
+            </tr>
+        }
+    </tbody>
+</table>

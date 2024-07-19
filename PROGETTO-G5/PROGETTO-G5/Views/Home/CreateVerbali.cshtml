@@ -1,0 +1,68 @@
+﻿@model PROGETTO_G5.Models.Verbale
+
+@{
+    ViewData["Title"] = "CreateVerbali";
+}
+
+<h1>CreateVerbali</h1>
+
+<h4>Verbale</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateVerbali" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DataViolazione" class="control-label"></label>
+                <input asp-for="DataViolazione" class="form-control" />
+                <span asp-validation-for="DataViolazione" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IndirizzoViolazione" class="control-label"></label>
+                <input asp-for="IndirizzoViolazione" class="form-control" />
+                <span asp-validation-for="IndirizzoViolazione" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NominativoAgente" class="control-label"></label>
+                <input asp-for="NominativoAgente" class="form-control" />
+                <span asp-validation-for="NominativoAgente" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataTrascrizioneVerbale" class="control-label"></label>
+                <input asp-for="DataTrascrizioneVerbale" class="form-control" />
+                <span asp-validation-for="DataTrascrizioneVerbale" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Importo" class="control-label"></label>
+                <input asp-for="Importo" class="form-control" />
+                <span asp-validation-for="Importo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DecurtamentoPunti" class="control-label"></label>
+                <input asp-for="DecurtamentoPunti" class="form-control" />
+                <span asp-validation-for="DecurtamentoPunti" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdAnagrafica" class="control-label"></label>
+                <input asp-for="IdAnagrafica" class="form-control" />
+                <span asp-validation-for="IdAnagrafica" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdTipoViolazione" class="control-label"></label>
+                <input asp-for="IdTipoViolazione" class="form-control" />
+                <span asp-validation-for="IdTipoViolazione" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
